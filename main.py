@@ -77,8 +77,10 @@ suggested_username_label = tk.Label(signup,
 suggested_username_label.grid(column=1,
                               row=7)
 
-if suggested_username_results:
+if suggested_username_results == True:
     suggested_username = random_username()
     suggested_username_label.config(text=suggested_username)
+else:
+    suggested_username_label.config(text="")
 
 signup.mainloop()
