@@ -1,52 +1,84 @@
-import kivy
-from kivy.app import App
-from kivy.uix.label import Label
-from kivy.uix.boxlayout import BoxLayout
-
+import tkinter as tk
 import random
 
-workout_list = ["Leg Raises", "Burpees", "Ankle Touches", "Arm Circles",
-"Lunges", "Bicycle Crunches", "Calf Raises", "Crunches", "Crossing Punches",
-"Inclined Wall Push-ups", "Leg Raises", "Low Plank", "Diamond Push-ups", "Inclined Push-ups",
-"Decline Push-ups", "Squats", "Punches", "Push-ups", "Side Lunges", "Sit-ups", "Triceps Dip",
-"Up Down Push-ups", "Up Downs", "Wall Push Offs", "Wide Push-ups"]
 
-random_number_one = random.randint(0, 24)
-random_number_two = random.randint(0, 24)
-random_number_three = random.randint(0, 24)
-random_number_four = random.randint(0, 24)
-random_number_five = random.randint(0, 24)
-random_number_six = random.randint(0, 24)
-random_number_seven = random.randint(0, 24)
+def random_username():
+    random_ascii = random.randint(51, 57)
+    random_ascii_2 = random.randint(51, 57)
+    random_ascii_3 = random.randint(51, 57)
 
-random_workout_one = workout_list[random_number_one]
-random_workout_two = workout_list[random_number_two]
-random_workout_three = workout_list[random_number_three]
-random_workout_four = workout_list[random_number_four]
-random_workout_five = workout_list[random_number_five]
-random_workout_six = workout_list[random_number_six]
-random_workout_seven = workout_list[random_number_seven]
+    forename = forename_entry.get()
+    forename = forename[:4]
+
+    surname = surname_entry.get()
+    surname = surname[:3]
+
+    random_ascii_values = chr(random_ascii) + chr(random_ascii_2) + chr(random_ascii_3)
+
+    random_username_username = forename + surname + str(random_ascii_values)
+    return random_username_username
 
 
-class Output_Workouts(BoxLayout):
+signup = tk.Tk()
+signup.title("Sign Up Page")
 
-    def __init__(self):
-        super(Output_Workouts, self).__init__()
+forename_label = tk.Label(signup,
+                          text="What is your forename?",
+                          font=("Ariel", 10))
+forename_label.grid(column=1,
+                    row=0,
+                    padx=75)
 
-    def generate_workout(self):
-        self.workout_label_1.text = str(random_workout_one)
-        self.workout_label_2.text = str(random_workout_two)
-        self.workout_label_3.text = str(random_workout_three)
-        self.workout_label_4.text = str(random_workout_four)
-        self.workout_label_5.text = str(random_workout_five)
-        self.workout_label_6.text = str(random_workout_six)
-        self.workout_label_7.text = str(random_workout_seven)
+forename_entry = tk.Entry(signup,
+                          width=30)
+forename_entry.grid(column=1,
+                    row=1,
+                    padx=75)
 
-class Better_You_App(App):
+surname_label = tk.Label(signup,
+                         text="What is your surname?",
+                         font=("Ariel", 10))
+surname_label.grid(column=1,
+                   row=2,
+                   padx=75)
 
-    def build(self):
-        return Output_Workouts()
+surname_entry = tk.Entry(signup,
+                         width=30)
+surname_entry.grid(column=1,
+                   row=3,
+                   padx=75)
 
-better_you_app = Better_You_App()
+username_label = tk.Label(signup,
+                          text="What would you like your username to be?",
+                          font=("Ariel", 10))
+username_label.grid(column=1,
+                    row=4,
+                    padx=75)
 
-better_you_app.run()
+username_entry = tk.Entry(signup,
+                          width=30)
+username_entry.grid(column=1,
+                    row=5,
+                    padx=75)
+
+suggested_username_results = tk.BooleanVar()
+
+suggested_username_checkbox = tk.Checkbutton(signup,
+                                             text="Would you like to use a suggested username?",
+                                             variable=suggested_username_results,
+                                             onvalue=True,
+                                             offvalue=False)
+suggested_username_checkbox.grid(column=1,
+                                 row=6)
+
+suggested_username_label = tk.Label(signup,
+                                    text="",
+                                    font=("Ariel", 10))
+suggested_username_label.grid(column=1,
+                              row=7)
+
+if suggested_username_results:
+    suggested_username = random_username()
+    suggested_username_label.config(text=suggested_username)
+
+signup.mainloop()
